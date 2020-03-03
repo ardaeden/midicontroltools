@@ -50,7 +50,6 @@ void MCT_Button::checkButton() {
     _mctOldButtonState = _mctButtonState;
 }
 
-
 uint8_t MCT_Button::getButtonType() {
   return _mctButtonType;
 }
@@ -113,7 +112,12 @@ void MCT_Pot::attachPotChange(potCallbackFunc newFunction) {
 /*-------------------*/
 /*MCT_Pillar         */
 /*-------------------*/
-MCT_Pillar::MCT_Pillar(uint8_t mctPillarPin) {
+MCT_Pillar::MCT_Pillar(uint8_t mctPillarPin, uint8_t mctPillarLedPin) {
   _mctPillarPin = mctPillarPin;
+  _mctPillarLedPin = mctPillarLedPin;
   pinMode(_mctPillarPin, INPUT);
+}
+
+void MCT_Pillar::checkPillar() {
+
 }

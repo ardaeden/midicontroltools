@@ -5,6 +5,7 @@
 
 #define BUTTON_DEBOUNCE_DELAY 20
 #define POT_TRESHOLD 5
+#define PILLAR_TRESHOLD 5
 
 typedef void (*pushPullCallbackFunc)(void);
 typedef void (*toggleCallbackFunc)(bool toggleState);
@@ -58,8 +59,12 @@ class MCT_Pot {
 
 class MCT_Pillar {
   public:
-    MCT_Pillar(uint8_t mctPillarPin);
+    MCT_Pillar(uint8_t mctPillarPin, uint8_t mctPillarLedPin);
+    void checkPillar();
   private:
   uint8_t _mctPillarPin;
+  uint8_t _mctPillarLedPin;
+  int _mctPillarReading;
+  int _mctPillarOldReading;
 };
 #endif
