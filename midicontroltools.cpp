@@ -1,4 +1,6 @@
 #include "midicontroltools.h"
+#include "filters.h"  //Martin Bloedorn's libfilter library is needed:
+                      //https://github.com/MartinBloedorn/libFilter
 
 /*-------------------*/
 /*MCT_Button         */
@@ -106,4 +108,12 @@ void MCT_Pot::checkPot() {
 
 void MCT_Pot::attachPotChange(potCallbackFunc newFunction) {
   _potChange = newFunction;
+}
+
+/*-------------------*/
+/*MCT_Pillar         */
+/*-------------------*/
+MCT_Pillar::MCT_Pillar(uint8_t mctPillarPin) {
+  _mctPillarPin = mctPillarPin;
+  pinMode(_mctPillarPin, INPUT);
 }

@@ -54,4 +54,12 @@ class MCT_Pot {
     uint8_t _mctPotMapped;
     potCallbackFunc _potChange = NULL;
 };
+
+
+class MCT_Pillar {
+  public:
+    MCT_Pillar(uint8_t mctPillarPin);
+  private:
+  uint8_t _mctPillarPin;
+};
 #endif
