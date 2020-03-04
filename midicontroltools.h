@@ -73,7 +73,8 @@ class MCT_Pillar {
     int _mctPillarReading;
     int _mctPillarOldReading = 0;
     int _mctPillarFiltered;
-    uint8_t _mctPillarLedPwmValue;
+    int _mctPillarValue;
+    int _mctPillarLedPwmValue;
     pillarCallbackFunc _pillarChange = NULL;
 };
 #endif

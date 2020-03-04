@@ -123,18 +123,23 @@ MCT_Pillar::MCT_Pillar(uint8_t mctPillarPin, uint8_t mctPillarLedPin) {
 
 void MCT_Pillar::checkPillar() {
   _mctPillarReading = analogRead(_mctPillarPin);
-  if (abs(_mctPillarOldReading - _mctPillarReading) > PILLAR_TRESHOLD) {
+
     if (_mctPillarReading > 900) _mctPillarReading = 900;
     if (_mctPillarReading < 110) _mctPillarReading = 110;
     _mctPillarFiltered = _f.filterIn(_mctPillarReading);
-    _mctPillarFiltered = map(_mctPillarFiltered, 110, 900, 0, 127);
+    _mctPillarValue = map(_mctPillarFiltered, 110, 900, 0, 127);
     _mctPillarLedPwmValue = map(_mctPillarFiltered, 110, 900, 0, 255);
     //Relimit filtered pillar value (maybe filter side effects)
-    if (_mctPillarFiltered < 0) _mctPillarFiltered = 0;
-    if (_mctPillarFiltered > 127) _mctPillarFiltered = 127;
+    if (_mctPillarValue < 0) _mctPillarValue = 0;
+    if (_mctPillarValue > 127) _mctPillarValue = 127;
+    //Serial.println(_mctPillarLedPwmValue);
     analogWrite(_mctPillarLedPin, _mctPillarLedPwmValue);
     //Callback function here:
-    if (_pillarChange) _pillarChange(_mctPillarFiltered);
-    _mctPillarOldReading = _mctPillarReading;
-  }
+    if (_pillarChange) _pillarChange(_mctPillarValue);
+    //_mctPillarOldReading = _mctPillarReading;
+  
+}
+
+void MCT_Pillar::attachPillarChange(potCallbackFunc newFunction) {
+  _pillarChange = newFunction;
 }
