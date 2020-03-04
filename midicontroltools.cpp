@@ -117,6 +117,7 @@ MCT_Pillar::MCT_Pillar(uint8_t mctPillarPin, uint8_t mctPillarLedPin) {
   _mctPillarPin = mctPillarPin;
   _mctPillarLedPin = mctPillarLedPin;
   pinMode(_mctPillarPin, INPUT);
+  pinMode(_mctPillarLedPin, OUTPUT);
 
 }
 
