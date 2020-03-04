@@ -11,9 +11,6 @@
 #define PILLAR_FILTER_CUTOFF_FREQ 2.0
 #define PILLAR_FILTER_SAMPLING_TIME 0.005
 
-
-
-
 typedef void (*pushPullCallbackFunc)(void);
 typedef void (*toggleCallbackFunc)(bool toggleState);
 typedef void (*potCallbackFunc)(uint8_t potValue);
