@@ -1,6 +1,7 @@
 #include "midicontroltools.h"
-#include "filters.h"  //Martin Bloedorn's libfilter library is needed:
-                      //https://github.com/MartinBloedorn/libFilter
+
+IIR::ORDER  filter_order  = IIR::ORDER::OD2;
+Filter _f(PILLAR_FILTER_CUTOFF_FREQ, PILLAR_FILTER_SAMPLING_TIME, filter_order);
 
 /*-------------------*/
 /*MCT_Button         */
@@ -116,8 +117,23 @@ MCT_Pillar::MCT_Pillar(uint8_t mctPillarPin, uint8_t mctPillarLedPin) {
   _mctPillarPin = mctPillarPin;
   _mctPillarLedPin = mctPillarLedPin;
   pinMode(_mctPillarPin, INPUT);
+
 }
 
 void MCT_Pillar::checkPillar() {
-
+  _mctPillarReading = analogRead(_mctPillarPin);
+  if (abs(_mctPillarOldReading - _mctPillarReading) > PILLAR_TRESHOLD) {
+    if (_mctPillarReading > 900) _mctPillarReading = 900;
+    if (_mctPillarReading < 110) _mctPillarReading = 110;
+    _mctPillarFiltered = _f.filterIn(_mctPillarReading);
+    _mctPillarFiltered = map(_mctPillarFiltered, 110, 900, 0, 127);
+    _mctPillarLedPwmValue = map(_mctPillarFiltered, 110, 900, 0, 255);
+    //Relimit filtered pillar value (maybe filter side effects)
+    if (_mctPillarFiltered < 0) _mctPillarFiltered = 0;
+    if (_mctPillarFiltered > 127) _mctPillarFiltered = 127;
+    analogWrite(_mctPillarLedPin, _mctPillarLedPwmValue);
+    //Callback function here:
+    if (_pillarChange) _pillarChange(_mctPillarFiltered);
+    _mctPillarOldReading = _mctPillarReading;
+  }
 }

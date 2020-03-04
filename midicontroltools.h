@@ -2,14 +2,22 @@
 #define _midiControlToolsH
 
 #include <Arduino.h>
+#include "filters.h"  //Martin Bloedorn's libfilter library is needed:
+                      //https://github.com/MartinBloedorn/libFilter
 
 #define BUTTON_DEBOUNCE_DELAY 20
 #define POT_TRESHOLD 5
 #define PILLAR_TRESHOLD 5
+#define PILLAR_FILTER_CUTOFF_FREQ 2.0
+#define PILLAR_FILTER_SAMPLING_TIME 0.005
+
+
+
 
 typedef void (*pushPullCallbackFunc)(void);
 typedef void (*toggleCallbackFunc)(bool toggleState);
 typedef void (*potCallbackFunc)(uint8_t potValue);
+typedef void (*pillarCallbackFunc)(uint8_t pillarValue);
 
 enum mct_button_type {  CLICKBUTTON,
                         PUSHPULLBUTTON,
@@ -61,10 +69,14 @@ class MCT_Pillar {
   public:
     MCT_Pillar(uint8_t mctPillarPin, uint8_t mctPillarLedPin);
     void checkPillar();
+    void attachPillarChange(pillarCallbackFunc newFunction);
   private:
-  uint8_t _mctPillarPin;
-  uint8_t _mctPillarLedPin;
-  int _mctPillarReading;
-  int _mctPillarOldReading;
+    uint8_t _mctPillarPin;
+    uint8_t _mctPillarLedPin;
+    int _mctPillarReading;
+    int _mctPillarOldReading = 0;
+    int _mctPillarFiltered;
+    uint8_t _mctPillarLedPwmValue;
+    pillarCallbackFunc _pillarChange = NULL;
 };
 #endif
