@@ -68,6 +68,7 @@ class MCT_Pillar {
     void checkPillar();
     void attachPillarChange(pillarCallbackFunc newFunction);
   private:
+    Filter* _f;
     uint8_t _mctPillarPin;
     uint8_t _mctPillarLedPin;
     int _mctPillarReading;

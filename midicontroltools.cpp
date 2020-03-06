@@ -1,7 +1,6 @@
 #include "midicontroltools.h"
 
 IIR::ORDER  filter_order  = IIR::ORDER::OD2;
-Filter _f(PILLAR_FILTER_CUTOFF_FREQ, PILLAR_FILTER_SAMPLING_TIME, filter_order);
 
 /*-------------------*/
 /*MCT_Button         */
@@ -114,11 +113,11 @@ void MCT_Pot::attachPotChange(potCallbackFunc newFunction) {
 /*MCT_Pillar         */
 /*-------------------*/
 MCT_Pillar::MCT_Pillar(uint8_t mctPillarPin, uint8_t mctPillarLedPin) {
+  _f = new Filter(PILLAR_FILTER_CUTOFF_FREQ, PILLAR_FILTER_SAMPLING_TIME, filter_order);
   _mctPillarPin = mctPillarPin;
   _mctPillarLedPin = mctPillarLedPin;
   pinMode(_mctPillarPin, INPUT);
   pinMode(_mctPillarLedPin, OUTPUT);
-
 }
 
 void MCT_Pillar::checkPillar() {
@@ -126,7 +125,7 @@ void MCT_Pillar::checkPillar() {
 
     if (_mctPillarReading > 900) _mctPillarReading = 900;
     if (_mctPillarReading < 110) _mctPillarReading = 110;
-    _mctPillarFiltered = _f.filterIn(_mctPillarReading);
+    _mctPillarFiltered = _f->filterIn(_mctPillarReading);
     _mctPillarValue = map(_mctPillarFiltered, 110, 900, 0, 127);
     _mctPillarLedPwmValue = map(_mctPillarFiltered, 110, 900, 0, 255);
     //Relimit filtered pillar value (maybe filter side effects)
