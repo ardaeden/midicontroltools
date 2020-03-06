@@ -17,7 +17,7 @@ MCT_Button::MCT_Button(uint8_t mctButtonPin, uint8_t mctButtonType) {
   digitalWrite(_mctButtonPin, HIGH);
 }
 
-void MCT_Button::checkButton() {
+void MCT_Button::update() {
   _mctButtonState = !_mctButtonDebounceAndRead();
 
   switch(_mctButtonType) {
@@ -95,7 +95,7 @@ MCT_Pot::MCT_Pot(uint8_t mctPotPin) {
   pinMode(_mctPotPin, INPUT);
 }
 
-void MCT_Pot::checkPot() {
+void MCT_Pot::update() {
   _mctPotReading = analogRead(_mctPotPin);
   if (abs(_mctPotReading - _mctPotOldReading) > POT_TRESHOLD) {
     _mctPotMapped = _mctPotReading >> 3; //3 bits shift = divide by 8
@@ -120,7 +120,7 @@ MCT_Pillar::MCT_Pillar(uint8_t mctPillarPin, uint8_t mctPillarLedPin) {
   pinMode(_mctPillarLedPin, OUTPUT);
 }
 
-void MCT_Pillar::checkPillar() {
+void MCT_Pillar::update() {
   _mctPillarReading = analogRead(_mctPillarPin);
 
     if (_mctPillarReading > 900) _mctPillarReading = 900;

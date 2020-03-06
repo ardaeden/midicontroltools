@@ -24,7 +24,7 @@ class MCT_Button {
   public:
     MCT_Button(uint8_t mctButtonPin, uint8_t mctButtonType);
     uint8_t getButtonType();
-    void checkButton();
+    void update();
     void attachButtonClick(pushPullCallbackFunc newFunction);
     void attachButtonPush(pushPullCallbackFunc newFunction);
     void attachButtonPull(pushPullCallbackFunc newFunction);
@@ -51,7 +51,7 @@ class MCT_Button {
 class MCT_Pot {
   public:
     MCT_Pot(uint8_t mctPotPin);
-    void checkPot();
+    void update();
     void attachPotChange(potCallbackFunc newFunction);
   private:
     uint8_t _mctPotPin;
@@ -65,7 +65,7 @@ class MCT_Pot {
 class MCT_Pillar {
   public:
     MCT_Pillar(uint8_t mctPillarPin, uint8_t mctPillarLedPin);
-    void checkPillar();
+    void update();
     void attachPillarChange(pillarCallbackFunc newFunction);
   private:
     Filter* _f;
