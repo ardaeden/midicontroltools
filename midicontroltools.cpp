@@ -70,7 +70,6 @@ void MCT_Button::attachButtonToggle(toggleCallbackFunc newFunction) {
   _buttonToggle = newFunction;
 }
 
-
 uint8_t MCT_Button::_mctButtonDebounceAndRead() {
 
   _mctButtonDebounceReading = digitalRead(_mctButtonPin);

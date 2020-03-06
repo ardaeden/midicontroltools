@@ -47,7 +47,6 @@ class MCT_Button {
     uint8_t _mctButtonDebounceAndRead();
 };
 
-
 class MCT_Pot {
   public:
     MCT_Pot(uint8_t mctPotPin);
@@ -60,7 +59,6 @@ class MCT_Pot {
     uint8_t _mctPotMapped;
     potCallbackFunc _potChange = NULL;
 };
-
 
 class MCT_Pillar {
   public:
