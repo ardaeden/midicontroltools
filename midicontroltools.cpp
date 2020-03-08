@@ -122,12 +122,13 @@ MCT_Pillar::MCT_Pillar(uint8_t mctPillarPin, uint8_t mctPillarLedPin) {
 void MCT_Pillar::update() {
   _mctPillarReading = analogRead(_mctPillarPin);
 
-    if (_mctPillarReading > 900) _mctPillarReading = 900;
-    if (_mctPillarReading < 110) _mctPillarReading = 110;
+    if (_mctPillarReading > PILLAR_BOTTOM) _mctPillarReading = PILLAR_BOTTOM;
+    if (_mctPillarReading < PILLAR_TOP) _mctPillarReading = PILLAR_TOP;
     _mctPillarFiltered = _f->filterIn(_mctPillarReading);
     if (abs(_mctPillarOldReading-_mctPillarFiltered) > PILLAR_TRESHOLD) {
-      _mctPillarValue = map(_mctPillarFiltered, 110, 900, 0, 127);
-      _mctPillarLedPwmValue = map(_mctPillarFiltered, 110, 900, 0, 255);
+      _mctPillarValue = map(_mctPillarFiltered, PILLAR_TOP, PILLAR_BOTTOM, 0, 127);
+      //_mctPillarLedPwmValue = map(_mctPillarFiltered, PILLAR_TOP, PILLAR_BOTTOM, 0, 255);
+      _mctPillarLedPwmValue = _mctPillarValue << 2;
       //Relimit filtered pillar value (maybe filter side effects)
       if (_mctPillarValue < 0) _mctPillarValue = 0;
       if (_mctPillarValue > 127) _mctPillarValue = 127;
