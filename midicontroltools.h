@@ -8,7 +8,7 @@
 #define BUTTON_DEBOUNCE_DELAY 20
 #define POT_TRESHOLD 5
 #define PILLAR_TRESHOLD 5
-#define PILLAR_FILTER_CUTOFF_FREQ 2.0
+#define PILLAR_FILTER_CUTOFF_FREQ 4.0
 #define PILLAR_FILTER_SAMPLING_TIME 0.005
 
 typedef void (*pushPullCallbackFunc)(void);
