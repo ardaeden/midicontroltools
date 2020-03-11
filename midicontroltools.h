@@ -10,8 +10,8 @@
 #define PILLAR_TRESHOLD 5
 #define PILLAR_FILTER_CUTOFF_FREQ 4.0
 #define PILLAR_FILTER_SAMPLING_TIME 0.005
-#define PILLAR_TOP 300
-#define PILLAR_BOTTOM 900
+#define PILLAR_TOP 300         //300 is a good value for SHARP 10-80
+#define PILLAR_BOTTOM 900      //900 is a good value for SHARP 10-80
 
 typedef void (*pushPullCallbackFunc)(void);
 typedef void (*toggleCallbackFunc)(bool toggleState);
