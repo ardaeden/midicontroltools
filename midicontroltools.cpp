@@ -1,6 +1,6 @@
 #include "midicontroltools.h"
 
-IIR::ORDER  filter_order  = IIR::ORDER::OD2;
+IIR::ORDER  filter_order  = IIR::ORDER::OD2; //define filter
 
 /*-------------------*/
 /*MCT_Button         */
