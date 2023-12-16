@@ -1,3 +1,4 @@
+//This is a test
 #include "midicontroltools.h"
 
 IIR::ORDER  filter_order  = IIR::ORDER::OD2; //define filter
