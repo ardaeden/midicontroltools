@@ -18,8 +18,8 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  btn1.checkButton();
-  pot1.checkPot();
+  btn1.update();
+  pot1.update();
   delay(5);
 }
 
